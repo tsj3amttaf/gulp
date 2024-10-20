@@ -1,20 +1,20 @@
 
 // Получаем имя папки проекта
-import * as nodePath from "path";
+import * as nodePath from 'path';
 const rootFolder = nodePath.basename( nodePath.resolve() );
 
 // Папка готовой сборки проекта
-const buildFolder = "./dist";
+const buildFolder = './dist';
 
 // Папка с исходными файлами проекта
-const srcFolder   = "./src";
+const srcFolder   = './src';
 
 const path = {
     build: {
-        files: "${srcFolder}/files/"
+        files: '${srcFolder}/files/'
     },
     src: {
-        files: "${srcFolder}/files/**/*.*"
+        files: '${srcFolder}/files/**/*.*'
     },
     watch: {},
     clean: buildFolder,

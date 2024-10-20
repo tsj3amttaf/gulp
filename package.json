@@ -8,5 +8,8 @@
   },
   "author": "tsj3amttaf",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "gulp": "^5.0.0"
+  }
 }
