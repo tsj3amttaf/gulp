@@ -8,7 +8,7 @@ const buildFolder = './dist';
 // Получаем имя папки с исходными файлами
 const srcFolder   = './src';
 
-//
+// Объявление путей (тут главное кавычки правильные поставить, чтобы маски заработали ``)
 export const path = {
 
     // Собрать в папке "dest"
@@ -21,7 +21,9 @@ export const path = {
         files: `${srcFolder}/files/**/*.*`,
     },
 
-    watch: {},
+    watch: {
+        files: `${srcFolder}/files/**/*.*`,
+    },
     clean:       buildFolder,
     buildFolder: buildFolder,
     srcFolder:   srcFolder,
