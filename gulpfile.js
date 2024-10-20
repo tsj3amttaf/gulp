@@ -1,22 +1,16 @@
-
-// Подключаю (импортирую) основной модуль
+// Импортирую основной модуль
 import gulp from 'gulp';
 
-// Подключаю пути, не путю
-import { path } from './builder/config/path.js';
-
-/*
-    Передаём значения в глобальную переменную, для того, чтобы все эти задачи
-    выполнялись с помощью основной команды на запуск в консоле: GULP
-*/
+// Импорт путей
+import { path } from './gulp/config/path.js';
 
 global.app = {
-    gulp: gulp,
-    path: path
+    path: path,
+    gulp: gulp
 }
 
-//
-import { copy } from './builder/tasks/copy.js';
+// 
+import { copy } from './gulp/tasks/copy.js';
 
-// Выполняем копирование файлов
+// Выполнение сценария по умолчанию
 gulp.task( 'default', copy );

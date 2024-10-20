@@ -1,24 +1,29 @@
-
-// Получаем имя папки проекта
+// Получаем имя папки проекта ввиде названия директории (в данном случае папка со сборкой будет называться "gulp")
 import * as nodePath from 'path';
 const rootFolder = nodePath.basename( nodePath.resolve() );
 
-// Папка готовой сборки проекта
+// Получаем имя папки "dist" для готовой сборки
 const buildFolder = './dist';
 
-// Папка с исходными файлами проекта
+// Получаем имя папки с исходными файлами
 const srcFolder   = './src';
 
-const path = {
+//
+export const path = {
+
+    // Собрать в папке "dest"
     build: {
-        files: '${srcFolder}/files/'
+        files: `${buildFolder}/files/`,
     },
+
+    // Исходники
     src: {
-        files: '${srcFolder}/files/**/*.*'
+        files: `${srcFolder}/files/**/*.*`,
     },
+
     watch: {},
-    clean: buildFolder,
+    clean:       buildFolder,
     buildFolder: buildFolder,
-    srcFolder: srcFolder,
-    rootFolder: rootFolder
+    srcFolder:   srcFolder,
+    rootFolder:  rootFolder,
 }
