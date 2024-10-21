@@ -13,15 +13,18 @@ export const path = {
 
     // Собрать в папке "dest"
     build: {
+        html: `${buildFolder}/`,
         files: `${buildFolder}/files/`,
     },
 
     // Исходники
     src: {
+        html: `${srcFolder}/*.html`,
         files: `${srcFolder}/files/**/*.*`,
     },
 
     watch: {
+        html: `${srcFolder}/**/*.html`,
         files: `${srcFolder}/files/**/*.*`,
     },
     clean:       buildFolder,
