@@ -10,14 +10,11 @@ export const html = () => {
 
     // Добавляем уведомление об ошибке
     .pipe(
-
         app.plugins.plumber(
-
             app.plugins.notify.onError( {
                 title: 'HTML',
                 message: 'Error: <%= error.message %>'
             } )
-            
         )
     )
 
@@ -61,4 +58,7 @@ export const html = () => {
 
     // Копируем в папку со сборкой
     .pipe( app.gulp.dest( app.path.build.html ) )
+
+    // Следим за изменениями в файлах и показываем их на лету
+    .pipe( app.plugins.browsersync.stream() )
 }

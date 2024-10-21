@@ -14,17 +14,20 @@ export const path = {
     // Собрать в папке "dest"
     build: {
         html: `${buildFolder}/`,
+        css: `${srcFolder}/css/`,
         files: `${buildFolder}/files/`,
     },
 
     // Исходники
     src: {
         html: `${srcFolder}/*.html`,
+        scss: `${srcFolder}/scss/style.scss`,
         files: `${srcFolder}/files/**/*.*`,
     },
 
     watch: {
         html: `${srcFolder}/**/*.html`,
+        scss: `${srcFolder}/scss/**/*.scss`,
         files: `${srcFolder}/files/**/*.*`,
     },
     clean:       buildFolder,
