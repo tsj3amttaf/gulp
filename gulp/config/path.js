@@ -14,7 +14,7 @@ export const path = {
     // Собрать в папке "dest"
     build: {
         html: `${buildFolder}/`,
-        css: `${srcFolder}/css/`,
+        css: `${buildFolder}/css/`,
         files: `${buildFolder}/files/`,
     },
 
