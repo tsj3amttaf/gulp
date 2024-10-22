@@ -52,6 +52,7 @@ export const images = () => {
 
             mozjpeg( {
                 quality: 75,
+                progressive: true
             } ),
 
             gifsicle( {
@@ -61,7 +62,7 @@ export const images = () => {
             svgo( {
                 plugins: [
                     { removeViewBox: false },
-                    { cleanupIDs: false }
+                    //{ cleanupIDs: false }
                 ]
             } )
         ] )
