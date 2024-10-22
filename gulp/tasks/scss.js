@@ -24,11 +24,11 @@ export const scss = () => {
         )
     )
 
-    // Меняю пути в итоговом файле, вместо @img от плагина Path Autocomplete, на img/
-    .pipe( app.plugins.replace( /@img\//g, '../img/' ) )
-
     // Используем мощный инструмент SASS
     .pipe( sass() )
+
+    // Меняю пути в итоговом файле, вместо @img от плагина Path Autocomplete, на img/
+    .pipe( app.plugins.replace( /@img\//g, '../img/' ) )
 
     // Группируем @media в итоговом CSS файле
     .pipe( groupCssMediaQueries() )

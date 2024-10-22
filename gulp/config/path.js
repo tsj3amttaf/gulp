@@ -23,17 +23,24 @@ export const path = {
     // Исходники
     src: {
         html:   `${srcFolder}/*.html`,
-        images: `${srcFolder}/img/**/*.{jpg, jpeg, png, gif, webp}`,
+        images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`,
         svg:    `${srcFolder}/img/**/*.svg`,
         scss:   `${srcFolder}/scss/style.scss`,
         js:     `${srcFolder}/js/scripts.js`,
         //files:  `${srcFolder}/files/**/*.*`,
     },
 
-    // Обновлять в браузере на лету
+    /*
+        Обновлять в браузере на лету.
+
+        Нужно запомнить на будущее и не тратить 2 часа в пустую пытаясь настроить
+        плагины сжатия... {jpg,jpeg,png,gif,webp} вот тут не должно быть пробелов
+        между расширениями... бля
+    */
+
     watch: {
         html:   `${srcFolder}/**/*.html`,
-        images: `${srcFolder}/img/**/*.{jpg, jpeg, png, gif, webp}`,
+        images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`,
         scss:   `${srcFolder}/scss/**/*.scss`,
         js:     `${srcFolder}/js/**/*.js`,
         //files: `${srcFolder}/files/**/*.*`,

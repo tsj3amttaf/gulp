@@ -1,5 +1,16 @@
+// Импортирую плагины
 import webp from 'gulp-webp';
 import imagemin from 'gulp-imagemin';
+import pngquant from 'imagemin-pngquant';
+import mozjpeg from 'imagemin-mozjpeg';
+import gifsicle from 'imagemin-gifsicle';
+import svgo from 'imagemin-svgo';
+
+/*
+    Выполз нюанс.
+    Не стоит называть файлы своим расширением, например: jpg.jpg
+    Всё ломается
+*/
 
 export const images = () => {
 
@@ -33,13 +44,27 @@ export const images = () => {
 
     // Сжимаем картинки
     .pipe(
-        
-        imagemin( {
-            progressive: true,
-            svgoPlugins: [{ removeViewBox: false }],
-            interlaced: true,
-            optimizationLevel: 3
-        } )
+        imagemin( [
+            
+            pngquant( {
+                quality: [ 0.6, 0.8 ]
+            } ),
+
+            mozjpeg( {
+                quality: 75,
+            } ),
+
+            gifsicle( {
+                interlaced: true,
+            } ),
+
+            svgo( {
+                plugins: [
+                    { removeViewBox: false },
+                    { cleanupIDs: false }
+                ]
+            } )
+        ] )
     )
 
     // Перемещаем в папку с результатом, но это ещё не всё...
