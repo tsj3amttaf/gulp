@@ -8,7 +8,7 @@
 
     Для работы этого плагина нужен настроеный Path Autocomplete в VSCode.
     Устанавливает в готовых файлах правильную директорию.
-    Например: заменяет @img на img/
+    Например: заменяет @img на ../img/
     Используется в файле tasks/html.js
 */
 
@@ -20,11 +20,11 @@ import plumber from 'gulp-plumber';
 // Сообщения об ошибках (уведомления)
 import notify from 'gulp-notify';
 
-/*
-    Уф
-*/
-
+// Авотобновление в браузере при изменении в файлах в папке src
 import browsersync from 'browser-sync';
+
+// Обрабатываем только те изображени, которых нет в папке dist
+import newer from 'gulp-newer';
 
 // Экспортируем плагины
 export const plugins = {
@@ -33,5 +33,5 @@ export const plugins = {
     plumber:     plumber,
     notify:      notify,
     browsersync: browsersync,
-
+    newer:       newer
 }
