@@ -1,5 +1,6 @@
+.no-webp html {
+  background: url("../img/test.png"); }
 html {
-  background: #000;
-  color: #fff;
-  margin: 20%;
+  padding: 20px;
 }
+.webp html { background: url(../img/test.webp); }

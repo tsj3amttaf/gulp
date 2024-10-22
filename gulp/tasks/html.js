@@ -22,7 +22,7 @@ export const html = () => {
     .pipe( fileInclude() )
 
     // Меняю пути в итоговом файле, вместо @img от плагина Path Autocomplete, на img/
-    .pipe( app.plugins.replace( /@img\//g, 'img/' ) )
+    .pipe( app.plugins.replace( /@img\//g, '../img/' ) )
 
     // Обертка <picture> для webp и оригинального формата
     .pipe( webpHtmlNosvg() )
