@@ -65,7 +65,17 @@ export const ttfToWoff = () => {
 
     Всё будет хорошо работать, если у шрифта будет подходящее
     имя файла для этой функции, например:
+        src/fonts > Roboto-Light.ttf
+        src/scss/fonts.scss > @font-face {
+            font-family: Roboto;
+            font-display: swap;
+            src: url( "../fonts/Roboto-Light.woff2" ) format( "woff2" ), url( "../fonts/Roboto-Light.woff" ) format( "woff" );
+            font-weight: 300;
+            font-style: normal;
+        }
 
+    Можно добавить и другие значения в имя файла, для более детальной
+    обрабоки, написать для этого дополнительные условия, но этого достаточно
 */
 
 export const fontStyle = () => {
@@ -77,9 +87,8 @@ export const fontStyle = () => {
     fs.readdir( app.path.build.fonts, function( err, fontsFiles ) {
 
         /*
-            Это условие необходимо для однократной обработки шрифтов.
-            Чтобы каждый раз не запускать обработку шрифтов при запуске gulp и
-            при необходимости делать изменения в fonts.scss в ручную без
+            Это условие необходимо для однократной записи шрифтов в файл fonts.scss.
+            Теперь есть возможность делать изменения в fonts.scss в ручную без
             автоматического обновления файла.
             
             Функция запишет в файл fonts.scss загруженные шрифты в папку src/fonts,
@@ -160,7 +169,10 @@ export const fontStyle = () => {
                 }
             }
 
-        // Если файл fonts.scss есть, выводим сообщение в консоль браузера
+        /*
+            Если файл fonts.scss есть, выводим сообщение в консоль браузера.
+            После нужно как от изящней придумать способ вывести эту информацию
+        */
         } else {
 
             console.log( 'Файл scss/fonts.scss уже существует. Для обновления файла его нужно удалить!' )
