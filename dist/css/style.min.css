@@ -1,19 +1,6 @@
-.no-webp html {
-  background: url("../img/test.png"); }
-
-html {
+.no-webp body {
+  background: no-repeat center center/100% url("../img/4.png"); }
+body {
   padding: 20px;
 }
-
-@media (max-width: 2000px) {
-  span {
-    color: red;
-  }
-
-  body {
-    background-color: #000;
-    color: #fff;
-  }
-}
-
-.webp html { background: url(../img/test.webp); }
+.webp body { background: no-repeat center center/100% url(../img/4.webp); }

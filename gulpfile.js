@@ -15,6 +15,7 @@ global.app = {
 
 // Ипорт задач
 import { reset } from './gulp/tasks/reset.js';
+import { otfToTtf, ttfToWoff, fontStyle } from './gulp/tasks/fonts.js';
 //import { copy } from './gulp/tasks/copy.js';
 import { html } from './gulp/tasks/html.js';
 import { images } from './gulp/tasks/images.js';
@@ -31,8 +32,11 @@ function watcher() {
     gulp.watch( path.watch.js, js );
 }
 
-// В основном нужна для watcher'а
-const mainTasks = gulp.parallel( /*copy,*/ html, images, scss, js );
+// Последовательная обработка шрифтов
+const fonts = gulp.series( otfToTtf, ttfToWoff, fontStyle );
+
+// Основные задачи
+const mainTasks = gulp.series( fonts, gulp.parallel( /*copy,*/ html, images, scss, js ) );
 
 // Построение сценариев выполнения задач
 const dev = gulp.series( reset, mainTasks, gulp.parallel( watcher, server ) );
