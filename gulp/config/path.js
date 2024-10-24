@@ -1,4 +1,9 @@
-// Получаем имя папки проекта ввиде названия директории (в данном случае папка со сборкой будет называться "gulp")
+
+/*
+    Получаем имя папки проекта ввиде названия директории
+    (в данном случае папка со сборкой будет называться "gulp")
+*/
+
 import * as nodePath from 'path';
 const rootFolder = nodePath.basename( nodePath.resolve() );
 
@@ -45,7 +50,7 @@ export const path = {
         images: `${srcFolder}/img/**/*.{jpg,jpeg,png,gif,webp}`,
         scss:   `${srcFolder}/scss/**/*.scss`,
         js:     `${srcFolder}/js/**/*.js`,
-        //svgIco: `${srcFolder}/icons/**/*.svg`,
+        svgIco: `${srcFolder}/icons/**/*.svg`,
         //files: `${srcFolder}/files/**/*.*`,
     },
 

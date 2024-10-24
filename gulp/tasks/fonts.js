@@ -83,7 +83,7 @@ export const fontStyle = () => {
     // Файл стилей подключения шрифтов
     let fontsFile = `${app.path.srcFolder}/scss/fonts.scss`;
 
-    // Проверяем, существуют ли файл шрифтов fonts.scss
+    // Проверяем, существует ли файл шрифтов fonts.scss
     fs.readdir( app.path.build.fonts, function( err, fontsFiles ) {
 
         /*
@@ -100,7 +100,7 @@ export const fontStyle = () => {
 
         if( fontsFiles ) {
 
-            // Проверяем, существуют ли файлы стилей в папке src/scss
+            // Проверяем, НЕ существует ли файл fonts.scss в папке src/scss и создаём его
             if( !fs.existsSync( fontsFile ) ) {
 
                 // Если файла нет, создаём его используя цикл
@@ -170,7 +170,7 @@ export const fontStyle = () => {
             }
 
         /*
-            Если файл fonts.scss есть, выводим сообщение в консоль браузера.
+            Если файл fonts.scss есть, выводим сообщение.
             После нужно как от изящней придумать способ вывести эту информацию
         */
        

@@ -4,10 +4,10 @@ import zipPlugin from 'gulp-zip';
 export const zip = () => {
 
     //  Удаляем архив с тем же названием, если есть
-    deleteAsync( `./${app.path.rootFolder}.zip` );
+    //deleteAsync( `./${app.path.rootFolder}.zip` );
 
     // Получаем путь до всех исходников
-    return app.gulp.src( `./${app.path.rootFolder}/**/*.*`, {} )
+    return app.gulp.src( `./${app.path.rootFolder}/**/*.*` )
 
     // Добавляем уведомление об ошибке
     .pipe(
@@ -20,7 +20,7 @@ export const zip = () => {
     )
 
     // Упаковываем в архив с названием папки проекта
-    .pipe( zipPlugin( `asd.zip` ) )
+    .pipe( zipPlugin( `${app.path.rootFolder}.zip` ) )
 
     // Переносим в корень проекта
     .pipe( app.gulp.dest( './' ) )

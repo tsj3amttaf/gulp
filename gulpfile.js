@@ -50,6 +50,7 @@ function watcher() {
     gulp.watch( path.watch.images, images );
     gulp.watch( path.watch.scss, scss );
     gulp.watch( path.watch.js, js );
+    gulp.watch( path.watch.svgIco, svg );
 }
 
 /*
@@ -59,13 +60,11 @@ function watcher() {
 
 export { svg };
 
-export { zip };
-
 // Последовательная обработка шрифтов
 export const fonts = gulp.series( otfToTtf, ttfToWoff, fontStyle );
 
 // Основные задачи
-const mainTasks = gulp.series( fonts, gulp.parallel( /*copy,*/ html, images, scss, js ) );
+const mainTasks = gulp.series( fonts, gulp.parallel( /*copy,*/ html, images, scss, js ), svg );
 
 // Запуск сервера и наблюдателя
 const serverWatcher = gulp.parallel( watcher, server );
@@ -88,6 +87,8 @@ if ( app.watch ) {
 }
 
 // Упаковка в ZIP
+//export { zip };
+
 if ( app.zip ) {
     gulp.task( 'prod', gulp.series( production, zip ) );
 }

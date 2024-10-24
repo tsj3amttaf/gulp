@@ -25,9 +25,11 @@ export const svg = () => {
                     /*
                         Создаёт папку stack с файлом sprite.stack.html внутри (dist/img).
                         Там подробное описание как использовать созданный svg спрайт.
+
+                        Заодно проверяет, какая сборка
                     */
 
-                    example: true
+                    example: app.isDev
                 }
             }
         } )
