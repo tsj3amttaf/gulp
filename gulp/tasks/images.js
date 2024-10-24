@@ -30,42 +30,81 @@ export const images = () => {
     // Обрабатываем только те изображени, которых нет в папке dist
     .pipe( app.plugins.newer( app.path.build.images ) )
 
-    /*
-        Конвертируем png, jpeg, tiff в webp.
-
-        Переносим webp изображения в папку dist и проверяем,
-        нет ли уже обработанных изображений в папке с результатом
-    */
-
-    .pipe( webp() )
-    .pipe( app.gulp.dest( app.path.build.images ) )
-    .pipe( app.gulp.src( app.path.src.images ) )
-    .pipe( app.plugins.newer( app.path.build.images ) )
-
-    // Сжимаем картинки
+    // Выполняет функцию, если указан флаг --prod для gulp
     .pipe(
-        imagemin( [
-            
-            pngquant( {
-                quality: [ 0.6, 0.8 ]
-            } ),
+        app.plugins.if(
+            app.isProd,
 
-            mozjpeg( {
-                quality: 75,
-                progressive: true
-            } ),
+            /*
+                Конвертируем png, jpeg, tiff в webp.
 
-            gifsicle( {
-                interlaced: true,
-            } ),
+                Переносим webp изображения в папку dist и проверяем,
+                нет ли уже обработанных изображений в папке с результатом
+            */
 
-            svgo( {
-                plugins: [
-                    { removeViewBox: false },
-                    //{ cleanupIDs: false }
-                ]
-            } )
-        ] )
+            webp()
+        )
+    )
+
+    // Выполняет функцию, если указан флаг --prod для gulp
+    .pipe(
+        app.plugins.if(
+            app.isProd,
+
+            // Переносим конвертированые webp в dist
+            app.gulp.dest( app.path.build.images )
+        )
+    )
+
+    // Выполняет функцию, если указан флаг --prod для gulp
+    .pipe(
+        app.plugins.if(
+            app.isProd,
+
+            // Определяем путь для исходных изображений
+            app.gulp.src( app.path.src.images )
+        )
+    )
+
+    // Выполняет функцию, если указан флаг --prod для gulp
+    .pipe(
+        app.plugins.if(
+            app.isProd,
+
+            // Предотвращает сборку уже обработанных изображений
+            app.plugins.newer( app.path.build.images )
+        )
+    )
+
+    // Выполняет функцию, если указан флаг --prod для gulp
+    .pipe(
+        app.plugins.if(
+            app.isProd,
+
+            // Сжимаем картинки
+            imagemin( [
+                
+                pngquant( {
+                    quality: [ 0.6, 0.8 ]
+                } ),
+
+                mozjpeg( {
+                    quality: 75,
+                    progressive: true
+                } ),
+
+                gifsicle( {
+                    interlaced: true,
+                } ),
+
+                svgo( {
+                    plugins: [
+                        { removeViewBox: false },
+                        //{ cleanupIDs: false }
+                    ]
+                } )
+            ] )
+        )
     )
 
     // Перемещаем в папку с результатом, но это ещё не всё...

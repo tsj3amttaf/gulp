@@ -1,9 +1,9 @@
 import svgSprite from 'gulp-svg-sprite';
 
-export const svgIcons = () => {
+export const svg = () => {
 
     // Получаем путь до исходников
-    return app.gulp.src( app.path.src.svgIco, {} )
+    return app.gulp.src( `${app.path.src.svgIco}`, {} )
 
     // Добавляем уведомление об ошибке
     .pipe(
@@ -15,12 +15,18 @@ export const svgIcons = () => {
         )
     )
 
-    //
+    // Объединяем svg иконки/изображения в один файл
     .pipe(
         svgSprite( {
             mode: {
                 stack: {
                     sprite: `../icons/icons.svg`,
+
+                    /*
+                        Создаёт папку stack с файлом sprite.stack.html внутри (dist/img).
+                        Там подробное описание как использовать созданный svg спрайт.
+                    */
+
                     example: true
                 }
             }
@@ -28,5 +34,5 @@ export const svgIcons = () => {
     )
 
     // Собираем в папку dest/img
-    .pipe( app.gulp.dest( app.path.build.images ) )
+    .pipe( app.gulp.dest( `${app.path.build.images}` ) )
 }

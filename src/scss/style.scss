@@ -1,7 +1,10 @@
 @import 'fonts';
 
 body {
-    background:no-repeat center center/100% url( '@img/4.png' );
+    background-image: url( '@img/5.png' );
+    background-position: top center;
+    background-color: #2b2b2b;
+
     padding: 20px;
 
     font-family: OuterSans;

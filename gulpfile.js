@@ -7,14 +7,28 @@ import { path } from './gulp/config/path.js';
 // Импорт плагинов
 import { plugins } from './gulp/config/plugins.js';
 
-// Импорт настроек флагов gulp
-//import { flags } from './gulp/config/flags.js';
-
 global.app = {
+
+    /*
+        Добавляет флаг к gulp, для сборки под продакшн.
+        Добаляет в сборку webp (html, css, images), сжатие изображений,
+        группировка @media в css, префиксы для браузеров в css, 
+    */
+
+    isProd:  process.argv.includes( 'prod' ),
+
+    // Можно в функциях использовать !isProd, но так проще читать код
+    isDev:   !process.argv.includes( 'prod' ),
+
+    // Если нужно посмотреть на готовый результ под продакш с помощью сервера
+    watch:   process.argv[3] == '--server',
+
+    // Упаковываем в ZIP
+    zip:     process.argv[3] == '--zip',
+
     path:    path,
     gulp:    gulp,
     plugins: plugins,
-    //flags:   flags
 }
 
 // Ипорт задач
@@ -25,7 +39,7 @@ import { html } from './gulp/tasks/html.js';
 import { images } from './gulp/tasks/images.js';
 import { scss } from './gulp/tasks/scss.js';
 import { js } from './gulp/tasks/js.js';
-import { svgIcons } from './gulp/tasks/svg-sprites.js';
+import { svg } from './gulp/tasks/svg-sprites.js';
 import { server } from './gulp/tasks/server.js';
 
 // Наблюдатель за изменениями в файлах
@@ -39,11 +53,10 @@ function watcher() {
 
 /*
     Экспорт нужен для отдельного вызова сборщика спрайтов.
-    Эта функция не будет включена в watcher и стандартный
-    сборщик gulp.
+    Эта функция не будет включена в watcher и основные задачи gulp.
 */
 
-export { svgIcons };
+export { svg };
 
 // Последовательная обработка шрифтов
 const fonts = gulp.series( otfToTtf, ttfToWoff, fontStyle );
@@ -51,34 +64,27 @@ const fonts = gulp.series( otfToTtf, ttfToWoff, fontStyle );
 // Основные задачи
 const mainTasks = gulp.series( fonts, gulp.parallel( /*copy,*/ html, images, scss, js ) );
 
-// Построение сценариев выполнения задач
-const dev = gulp.series( reset, mainTasks, gulp.parallel( watcher, server ) );
+// Запуск сервера и наблюдателя
+const serverWatcher = gulp.parallel( watcher, server );
 
-// Выполнение сценария по умолчанию
+// Построение сценариев выполнения задач
+const dev = gulp.series( reset, mainTasks, serverWatcher );
+
+// Построение задач для продакшена
+const production = gulp.series( reset, mainTasks );
+
+// Выполнение сценария по умолчанию (gulp)
 gulp.task( 'default', dev );
 
+// Выполнение сценария для продакшена
+gulp.task( 'prod', production );
 
-// const isProd = process.argv.includes( '--production' );
-// function stylesCompile() {
-// return src(paths.styles.src)
-//     .pipe(errorAlert({
-//     errorHandler: errorNotify.onError(error => ({
-//         title: 'SCSS ERROR',
-//         message: error.message
-//     }))
-//     }))
-//     .pipe(sassCompile())
-//     .pipe(cssMediaGroup())
-//     .pipe(cssAutoPrefixer({
-//     overrideBrowserslist: ['last 2 version'],
-//     cascade: false
-//     }))
-//     .pipe(
-//     gulpIf(
-//         isProd,
-//         cssCompress()
-//     )
-//     )
-//     .pipe(dest(paths.styles.dest))
-//     .pipe(browserSync.stream());
-// }
+// Выполнение сценария для продакшена c наблюдателем и сервером
+if ( app.watch ) {
+    gulp.task( 'prod', gulp.series( production, serverWatcher ) );
+}
+
+// Упаковка в ZIP
+if ( app.zip ) {
+    gulp.task( 'prod', production );
+}

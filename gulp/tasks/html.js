@@ -24,36 +24,47 @@ export const html = () => {
     // Меняю пути в итоговом файле, вместо @img от плагина Path Autocomplete, на img/
     .pipe( app.plugins.replace( /@img\//g, '../img/' ) )
 
-    // Обертка <picture> для webp и оригинального формата
-    .pipe( webpHtmlNosvg() )
-
-    /*
-        Этот плагин нужен исключительно в разработке.
-        Указывает версию для CSS и JS файлов, тем самым
-        предотвращая кэширование на стороне клиента.
-        Теперь не придётся просить чистить кэш у заказчика
-    */
-
+    // Включает обработку webp для сборки, если указан флаг --prod для gulp
     .pipe(
+        app.plugins.if(
+            app.isProd,
+            
+            // Обертка <picture> для webp и оригинального формата
+            webpHtmlNosvg()
+        )
+    )
 
-        // Полная документация на сайте: https://www.npmjs.com/package/gulp-version-number
-        versionNumber( {
+    // Добавляет версию css и js для заказчика, если указан флаг --prod для gulp
+    .pipe(
+        app.plugins.if(
+            app.isProd,
 
-            'value': '%DT%', // Дата и время
-            'append': {
-                'key': '_v',
-                'cover': 0,
-                'to': [
-                    'css',
-                    'js'
-                ]
-            },
+            /*
+                Указывает версию для CSS и JS файлов, тем самым
+                предотвращая кэширование на стороне клиента.
+                Теперь не придётся просить чистить кэш у заказчика
 
-            'output': {
-                'file': 'gulp/version.json' // Пока не понятно зачем хранить дату и время в файле
-            }
+                Полная документация на сайте: https://www.npmjs.com/package/gulp-version-number
+            */
 
-        } )
+            versionNumber( {
+
+                'value': '%DT%', // Дата и время
+                'append': {
+                    'key': '_v',
+                    'cover': 0,
+                    'to': [
+                        'css',
+                        'js'
+                    ]
+                },
+
+                'output': {
+                    'file': 'gulp/version.json'
+                }
+
+            } )
+        )
     )
 
     // Копируем в папку со сборкой

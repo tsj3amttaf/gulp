@@ -1,3 +1,4 @@
+
 /* 
     Этот файл (plugins.js) необходим.
     Была идея импортировать browserSync непосредственно в файл
@@ -23,8 +24,11 @@ import notify from 'gulp-notify';
 // Авотобновление в браузере при изменении в файлах в папке src
 import browsersync from 'browser-sync';
 
-// Обрабатываем только те изображени, которых нет в папке dist
+// Обрабатываем только те файлы, которых нет в папке dist
 import newer from 'gulp-newer';
+
+// Указываем условия внутри функций, для разделения задач на "dev" и "prod"
+import ifPlugin from 'gulp-if';
 
 // Экспортируем плагины
 export const plugins = {
@@ -33,5 +37,6 @@ export const plugins = {
     plumber:     plumber,
     notify:      notify,
     browsersync: browsersync,
-    newer:       newer
+    newer:       newer,
+    if:          ifPlugin
 }
