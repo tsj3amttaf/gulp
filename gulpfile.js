@@ -60,6 +60,8 @@ function watcher() {
 
 export { svg };
 
+export { fontStyle };
+
 // Последовательная обработка шрифтов
 export const fonts = gulp.series( otfToTtf, ttfToWoff, fontStyle );
 

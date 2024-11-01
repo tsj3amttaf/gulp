@@ -1,5 +1,5 @@
 // Подключаем плагины
-import fs from 'fs';
+//import fs from 'fs';
 import fonter from 'gulp-fonter-2';
 import ttf2woff2 from 'gulp-ttf2woff2';
 import fontface from 'gulp-fontfacegen-mod';
@@ -81,33 +81,28 @@ export const ttfToWoff = () => {
 
 export const fontStyle = () => {
 
-    // Файл стилей подключения шрифтов
     //let fontsFile = `${app.path.srcFolder}/scss/fonts.scss`;
 
-    return app.gulp.src( app.path.src.fonts )
+    // получаем массив файлов
+    //fs.readdir( app.path.build.fonts, ( err, fontsFile ) => {
 
-    // Проверяем, существует ли файл шрифтов fonts.scss
-    //fs.readdir( app.path.build.fonts, function( err, fontsFile ) {
+        // проверяем, существует ли файл fonts.scss
+        //if( fs.existsSync( fontsFile ) == true ) {
 
-        /*
-            Это условие необходимо для однократной записи шрифтов в файл fonts.scss.
-            Теперь есть возможность делать изменения в fonts.scss в ручную без
-            автоматического обновления файла.
-            
-            Функция запишет в файл fonts.scss загруженные шрифты в папку src/fonts,
-            ОДНОКРАТНО и больше не будет предпринимать действий по обработке шрифтов.
+            // Если файла нет, создаём его используя цикл
+            //fs.writeFile( fontsFile, '', cb );
 
-            Однако, если всё же нужно по какой то причине обновить шрифт(ы),
-            необходимо удалить fonts.scss чтобы начать обработку шрифтов заного.
-        */
+            return app.gulp.src( `${app.path.srcFolder}/fonts/*.{woff,woff2}`, {} )
 
-        .pipe(
-            fontface({
-                filepath: '../../src/fonts/',
-			    filename: 'fonts.scss',
-            })
-        )
+            .pipe(
+                fontface( {
+                    filepath: `${app.path.srcFolder}/scss`,
+                    filename: 'fonts.scss',
+                    //destpath: `${app.path.srcFolder}/scss`
+                } )
+            )
+        //}
 
-        .pipe( app.gulp.dest( `${app.path.build.fonts}` ) )
+        //function cb() {};
     //} )
 }

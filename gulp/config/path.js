@@ -33,7 +33,7 @@ export const path = {
         svg:    `${srcFolder}/img/**/*.svg`,
         scss:   `${srcFolder}/scss/style.scss`,
         js:     `${srcFolder}/js/scripts.js`,
-        fonts:  `${srcFolder}/fonts/*.{eot,ttf,otf,otc,ttc,woff,woff2,svg}`,
+        fonts:  `${srcFolder}/fonts/`,
         svgIco: `${srcFolder}/icons/*.svg`,
         //files:  `${srcFolder}/files/**/*.*`,
     },

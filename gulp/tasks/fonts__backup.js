@@ -83,7 +83,7 @@ export const fontStyle = () => {
     // Файл стилей подключения шрифтов
     let fontsFile = `${app.path.srcFolder}/scss/fonts.scss`;
 
-    // Проверяем, существует ли файл шрифтов fonts.scss
+    // Nodejs читает содержимое каталога, чтобы получить список (массив) файлов в папке fonts
     fs.readdir( app.path.build.fonts, function( err, fontsFiles ) {
 
         /*
