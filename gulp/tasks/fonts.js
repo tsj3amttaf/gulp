@@ -98,7 +98,7 @@ export const fontStyle = () => {
                 fontface( {
                     filepath: `${app.path.srcFolder}/scss`,
                     filename: 'fonts.scss',
-                    //destpath: `${app.path.srcFolder}/scss`
+                    destpath: `${app.path.buildFolder}/fonts`
                 } )
             )
         //}
